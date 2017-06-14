@@ -1,6 +1,6 @@
 # Siret
 
-`//`
+`/sɪrɛ́t/`
 
 [![build status](https://gitlab.com/lupine-software/siret/badges/master/build.svg)](https://gitlab.com/lupine-software/siret/commits/master) [![coverage report](https://gitlab.com/lupine-software/siret/badges/master/coverage.svg)](https://gitlab.com/lupine-software/siret/commits/master)
 
@@ -114,7 +114,7 @@ user's browser.
 
 ```zsh
 : via npm
-% npm install scrolliris-readability-tracker
+% npm install @lupine-software/scrolliris-readability-tracker --save
 ```
 
 
