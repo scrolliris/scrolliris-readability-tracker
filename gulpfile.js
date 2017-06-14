@@ -1,0 +1,196 @@
+'use strict';
+
+var fs = require('fs')
+  , pkg = require('./package.json')
+  ;
+
+var gulp = require('gulp')
+  , babelify = require('babelify')
+  , browserify = require('browserify')
+  , buffer = require('vinyl-buffer')
+  , clean = require('gulp-clean')
+  , env = require('gulp-env')
+  , pump = require('pump')
+  , rename = require('gulp-rename')
+  , source = require('vinyl-source-stream')
+  , uglify = require('gulp-uglify')
+  , util = require('gulp-util')
+  , sequence = require('run-sequence')
+  , sourcemaps = require('gulp-sourcemaps')
+  , tapColorize = require('tap-colorize')
+  , tape = require('gulp-tape')
+  , tapeRun = require('tape-run')
+  ;
+
+
+// -- [shared tasks]
+
+gulp.task('env', function(done) {
+  var dotenv_file = '.env';
+  if (fs.existsSync(dotenv_file)) {
+    return gulp.src(dotenv_file)
+      .pipe(env({
+        file: dotenv_file
+      , type: '.ini'
+      }));
+  } else {
+    return done();
+  }
+})
+
+gulp.task('clean', function() {
+  return gulp.src([
+      './dist/*'
+    , './test/build/*.js'
+    , './coverage/*'
+    ], {read: false})
+    .pipe(clean());
+});
+
+
+// -- [build tasks]
+
+var runBrowserify = function(inputFile, outputFile) {
+  return function() {
+    return browserify({
+        entries: './lib/' + inputFile
+      , debug: false
+      })
+      .transform('babelify', {
+        presets: ['es2015']
+      , sourceMapsAbsolute: true
+      })
+      .bundle()
+      .pipe(source(outputFile))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({
+        loadMaps: true
+      }))
+      .on('error', util.log)
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./dist/'));
+  };
+};
+
+var runMinify = function(filename) {
+  return function() {
+    return pump([
+        gulp.src(['./dist/' + filename])
+      , uglify()
+      , rename({suffix: '.min'})
+      , gulp.dest('./dist/')
+      ]);
+  };
+};
+
+gulp.task('build:browserify:index', ['env'],
+  runBrowserify('index.js', pkg.name + '.js'));
+gulp.task('build:browserify:browser', ['env'],
+  runBrowserify('browser.js', pkg.name + '-browser.js'));
+
+gulp.task('build:minify:index', ['env'],
+  runMinify(pkg.name + '.js'));
+gulp.task('build:minify:browser', ['env'],
+  runMinify(pkg.name + '-browser.js'));
+
+gulp.task('build:index', function(done) {
+  return sequence('build:browserify:index', 'build:minify:index', done);
+});
+
+gulp.task('build:browser', function(done) {
+  return sequence('build:browserify:browser', 'build:minify:browser', done);
+});
+
+gulp.task('build', ['build:index', 'build:browser']);
+
+
+// -- [test tasks]
+
+// unit tests
+gulp.task('test:unit:clean', function() {
+  return gulp.src(['./test/build/unit-*.js'], {read: false})
+    .pipe(clean());
+});
+
+gulp.task('test:unit:build', function() {
+  return browserify({
+      entries: './test/unit/index.js'
+    , debug: true
+    })
+    .transform('babelify', {
+      presets:            ['es2015']
+    , sourceMapsAbsolute: true
+    })
+    .bundle()
+    .pipe(source('unit-tests.js'))
+    .pipe(buffer())
+    .on('error', util.log)
+    .pipe(gulp.dest('./test/build/'));
+});
+
+gulp.task('test:unit:run', function() {
+  return gulp.src(['test/build/unit-tests.js'])
+    .pipe(tape({
+      reporter: tapColorize()
+    }));
+});
+
+gulp.task('test:unit', function(done) {
+  return sequence('test:unit:clean', 'test:unit:build', 'test:unit:run', done);
+});
+
+// functional tests
+gulp.task('test:functional:clean', function() {
+  return gulp.src(['./test/build/functional-*.js'], {read: false})
+    .pipe(clean());
+});
+
+// cat ./test/build/functional-tests.js | ./node_modules/.bin/tape-run
+gulp.task('test:functional:build', function() {
+  return browserify({
+      entries: './test/functional/index.js'
+    , debug:   true
+    })
+    .transform('babelify', {
+      presets:            ['es2015']
+    , sourceMapsAbsolute: true
+    })
+    .bundle()
+    .pipe(source('functional-tests.js'))
+    .pipe(buffer())
+    .on('error', util.log)
+    .pipe(gulp.dest('./test/build/'));
+});
+
+// run tests on electron
+gulp.task('test:functional:run', function() {
+  return browserify({
+      entries: './test/functional/index.js'
+    , debug:   true
+    })
+    .transform('babelify', {
+      presets:            ['es2015']
+    , sourceMapsAbsolute: true
+    })
+    .bundle()
+    .pipe(tapeRun())
+    .on('error', util.log)
+    .pipe(process.stdout);
+});
+
+gulp.task('test:functional', function(done) {
+  return sequence('test:functional:run', done);
+});
+
+gulp.task('test:clean', ['test:unit:clean', 'test:functional:clean']);
+gulp.task('test',  ['test:unit', 'test:functional']);
+
+
+// -- [main tasks]
+
+gulp.task('default', function(done) {
+  var nodeEnv = process.env.NODE_ENV || 'production';
+  console.log('» gulp:', nodeEnv);
+
+  return sequence('clean', 'build', done);
+});
