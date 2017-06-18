@@ -1,6 +1,6 @@
 {
   "name": "@lupine-software/scrolliris-readability-tracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Text Readability Tracker by Scrolliris (Code name: siret)",
   "scripts": {
     "test": "karma start || cat coverage/text-summary.txt"
