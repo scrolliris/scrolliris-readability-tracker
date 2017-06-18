@@ -83,15 +83,17 @@ var runMinify = function(filename) {
   };
 };
 
+var pkgName = pkg.name.split('/')[1];
+
 gulp.task('build:browserify:index', ['env'],
-  runBrowserify('index.js', pkg.name + '.js'));
+  runBrowserify('index.js', pkgName + '.js'));
 gulp.task('build:browserify:browser', ['env'],
-  runBrowserify('browser.js', pkg.name + '-browser.js'));
+  runBrowserify('browser.js', pkgName + '-browser.js'));
 
 gulp.task('build:minify:index', ['env'],
-  runMinify(pkg.name + '.js'));
+  runMinify(pkgName + '.js'));
 gulp.task('build:minify:browser', ['env'],
-  runMinify(pkg.name + '-browser.js'));
+  runMinify(pkgName + '-browser.js'));
 
 gulp.task('build:index', function(done) {
   return sequence('build:browserify:index', 'build:minify:index', done);
