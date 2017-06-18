@@ -699,7 +699,7 @@ var Client = function () {
 
     _classCallCheck(this, Client);
 
-    this.publicationKey = settings.publicationKey;
+    this.scrollKey = settings.scrollKey;
     this.token = settings.token; // csrf token
     this.clock = options.baseDate ? new _clock2.default(options.baseDate) : new _clock2.default();
 
@@ -726,7 +726,7 @@ var Client = function () {
 
     this.credentials = {
       token: this.token,
-      publicationKey: this.publicationKey
+      scrollKey: this.scrollKey
     };
 
     this.privacy = new _privacy2.default();
@@ -741,9 +741,9 @@ var Client = function () {
     key: '_checkConfig',
     value: function _checkConfig() {
       var error = false;
-      if (typeof this.publicationKey === 'undefined' || this.publicationKey === null || this.publicationKey === '') {
+      if (typeof this.scrollKey === 'undefined' || this.scrollKey === null || this.scrollKey === '') {
         error = true;
-        console.error('[ERROR] publicationKey is needed');
+        console.error('[ERROR] scrollKey is needed');
       }
       if (typeof this.token === 'undefined' || this.token === null || this.token === '') {
         error = true;
@@ -1070,14 +1070,14 @@ Object.defineProperty(exports, "__esModule", {
 var fn = function fn(e) {
   var body = e.data[0] || {},
       endpointURL = e.data[1] || 'http://127.0.0.1',
-      credentials = e.data[2] || { token: '', publicationKey: '' },
+      credentials = e.data[2] || { token: '', scrollKey: '' },
       isAsync = false;
   var xhr = new XMLHttpRequest();
   xhr.open('PUT', endpointURL, isAsync);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.setRequestHeader('X-CSRF-Token', credentials.token);
-  xhr.setRequestHeader('X-Publication-Key', credentials.publicationKey);
+  xhr.setRequestHeader('X-Scroll-Key', credentials.scrollKey);
   xhr.send(JSON.stringify(body));
 };
 

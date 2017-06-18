@@ -1,3 +1,6 @@
+19 Jun 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+ * Rename PublicationKey to ScrollKey
+
 15 Jun 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
  * Release 0.0.1 (v0.0.1)
  * Initial commit

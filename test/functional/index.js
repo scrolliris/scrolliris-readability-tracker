@@ -10,7 +10,7 @@ import './utils/uuid_test';
 // Client
 test('constructor of client', (t) => {
   let client = new Client({
-    publicationKey: 'key'
+    scrollKey: 'key'
   , token: 'token'
   });
 
@@ -21,7 +21,7 @@ test('constructor of client', (t) => {
 
 test('The client\'s debug mode', (t) => {
   let client = new Client({
-    publicationKey: 'key'
+    scrollKey: 'key'
   , token: 'token'
   });
 
@@ -30,13 +30,13 @@ test('The client\'s debug mode', (t) => {
   t.end();
 });
 
-test('The client\'s publicationKey', (t) => {
+test('The client\'s scrollKey', (t) => {
   let client = new Client({
-    publicationKey: 'key'
+    scrollKey: 'key'
   , token: 'token'
   });
 
-  t.equal(client.publicationKey, 'key',
+  t.equal(client.scrollKey, 'key',
     'should be set via settings argument');
   t.end();
 });

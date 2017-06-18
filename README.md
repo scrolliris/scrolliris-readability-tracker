@@ -52,7 +52,7 @@ This is sample data.
 ### Request Header
 
 * `X-CSRF-Token`
-* `X-Publication-Key`
+* `X-Scroll-Key`
 
 ```txt
 Host: api.example.org
@@ -63,7 +63,7 @@ Accept-Encoding: gzip, deflate, br
 Content-Type: application/json; charset=UTF-8
 X-Requested-With: XMLHttpRequest
 X-CSRF-Token: KD_zt-Q5SzCL2lLTzGMUcQ--
-X-Publication-Key: ""
+X-Scroll-Key: ""
 ```
 
 ### Body
@@ -126,7 +126,7 @@ user's browser.
 
 | value | default | description |
 |---|---|---|
-| publicationKey | `null` | This value is set as `X-Publication-Key` in request header. |
+| scrollKey | `null` | This value is set as `X-Scroll-Key` in request header. |
 | token | `null` | CSRF token. This value is set as `X-CSRF-Token` in request header. |
 
 #### Options
@@ -192,7 +192,7 @@ client.record(article, {
 ```js
 (function(tracker) {
   var client = new tracker.Client({
-    publicationKey: '...'
+    scrollKey: '...'
   , token: '...'
   }, {
     debug: false
@@ -214,7 +214,7 @@ The main `lib/index.js` has ES2015 style.
 import Client from 'siret';
 
 let client = new Client({
-  publicationKey: '...'
+  scrollKey: '...'
 , token: '...'
 }, {
   debug: false
@@ -238,7 +238,7 @@ var Client = require('siret/dist/scrolliris-readability-tracker.min');
 
 (function() {
   var client = new Client({
-    publicationKey: '...'
+    scrollKey: '...'
   , token: '...'
   }, {
     debug: false
