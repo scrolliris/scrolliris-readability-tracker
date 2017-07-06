@@ -73,6 +73,7 @@ X-Scroll-Key: ""
   "domain": "example.org",
   "path": "/k-nightmare-story/englishman-loves-a-lord",
   "traceKey": "KanaylMKTRuWGJSRczIg_w--", // __anonymous__ key generatod on browser
+  "eventType": "scroll", // {scroll|visibilitychange|fullscreenchange}
   "record": {
     "data": { // capturing data
       "headings": [0, 1],
@@ -84,11 +85,6 @@ X-Scroll-Key: ""
       "startedAt":  1489082998821 // capturing has been started at
     },
     "info": { // browsing information
-      "fullscreen": false,
-      "orientation": {
-        "type": "landscape", // {landscape|portrait}
-        "angle": 0
-      },
       "scroll": [
         "position": [0, 345], // (x, y)
         "proportion": [0, 52.35204855842185] // (x, y)
@@ -97,7 +93,6 @@ X-Scroll-Key: ""
     "view": [1678, 677], // view port size (width, height)
     "page": [1683, 1336], // html document size (width, height)
   },
-  "eventType": "scroll", // {scroll|visibilitychange|fullscreenchange}
   "count": 14, // total captured count on this article
   "duration": "22.40", // total captured duration on this article
   "startedAt": 1489083012910, // tracking has been started at
