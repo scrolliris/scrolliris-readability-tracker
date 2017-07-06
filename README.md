@@ -85,13 +85,13 @@ X-Scroll-Key: ""
       "startedAt":  1489082998821 // capturing has been started at
     },
     "info": { // browsing information
-      "scroll": [
+      "scroll": {
         "position": [0, 345], // (x, y)
         "proportion": [0, 52.35204855842185] // (x, y)
-      ]
-    },
-    "view": [1678, 677], // view port size (width, height)
-    "page": [1683, 1336], // html document size (width, height)
+      },
+      "view": [1678, 677], // view port size (width, height)
+      "page": [1683, 1336], // html document size (width, height)
+    }
   },
   "count": 14, // total captured count on this article
   "duration": "22.40", // total captured duration on this article
