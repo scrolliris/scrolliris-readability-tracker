@@ -5,13 +5,13 @@
     <title>Example | Scrolliris Readability Tracker</title>
   </head>
   <body>
-    <section id="publication" data-id="id" data-key="PUBLICATION KEY">
+    <section id="publication">
       <div class="meta">
         <h2>PUBLICATION TITLE</h2>
         <h3 class="subtitle">PUBLICATION SUB TITLE</h3>
       </div>
 
-      <article id="article" data-id="id" data-token="TOKEN">
+      <article id="article">
         <div class="meta">
           <p class="author">AUTHOR</p>
         </div>
@@ -63,34 +63,39 @@
 
     <script src="../dist/scrolliris-readability-tracker-browser.js"></script>
     <script>
+// short version
+// (function(w) {
+//   var config = {
+//     publicationKey: 'PUBLICATION_KEY'
+//   },
+//   t=w.ScrollirisReadabilityTracker,c=new t.Client(config);
+//   c.ready(['body'], function() {c.record();});
+// }(window));
+
 (function(tracker) {
-  var publication = document.getElementById('publication')
-    , article = document.getElementById('article')
-      // default
-      // Or use ISO-8601 format value with timezone such as
-      // `0000-00-00T00:00:00.000+00:00`
-    , date = new Date().toISOString()
-    ;
+  // NOTE:
+  // If you specify date, use ISO-8601 format value with timezone such as
+  // `0000-00-00T00:00:00.000+00:00`
   var client = new tracker.Client({
-    publicationKey: publication.getAttribute('data-key')
-  , token: article.getAttribute('data-token')
+    scrollKey: 'PUBLICATION_KEY'
+  , token: 'TOKEN'
   }, {
     debug: true
-  , baseDate: date
+  , endpointURL: 'http://localhost:3000/track'
+  , baseDate: (new Date().toISOString())
   });
 
-  var content = document.getElementById('article_content');
   client.ready(['body'], function() {
-    client.record(content, {
+    client.record({
       selectors: {
-        body: 'div.body'
+        article: 'article'
       , heading: 'h2,h3'
       , paragraph: 'p'
       , sentence: 'p > span'
-      , material: 'img,table,pre,quote'
+      , material: 'table,pre'
       }
     , extra: {
-        fontName: 'Dejavu Sans'
+        fontName: 'Dejavu Sans'  // e.g. from css
       }
     });
   });
