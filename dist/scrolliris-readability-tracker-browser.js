@@ -16,7 +16,7 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 window.ScrollirisReadabilityTracker = ScrollirisReadabilityTracker;
 
-},{"./index":9}],2:[function(require,module,exports){
+},{"./index":8}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -198,10 +198,6 @@ var _scrollbar = require('./scrollbar');
 
 var _scrollbar2 = _interopRequireDefault(_scrollbar);
 
-var _screen = require('./screen');
-
-var _screen2 = _interopRequireDefault(_screen);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -221,8 +217,8 @@ var Recorder = function () {
     this._bar = new _scrollbar2.default();
 
     this._view = { // inner rect (viewport)
-      'margin': 9 * 2,
-      'width': Math.max(window.innerWidth - this._bar.width, html.clientWidth),
+      'margin': 0 // TODO (use font-size or line-height?)
+      , 'width': Math.max(window.innerWidth - this._bar.width, html.clientWidth),
       'height': Math.max(window.innerHeight - this._bar.height, html.clientHeight)
     };
 
@@ -237,11 +233,11 @@ var Recorder = function () {
       if (typeof selectors === 'undefined' || selectors === null || Object.getOwnPropertyNames(selectors).length === 0) {
         // default
         return {
-          body: 'div.body',
-          heading: 'h1,h2,h3,h3,h4,h6',
+          article: 'body article' // first article
+          , heading: 'h1,h2,h3,h3,h4,h6',
           paragraph: 'p',
           sentence: 'p > span',
-          material: 'img,pre,table,quote'
+          material: 'ul,ol,pre,table,blockquote'
         };
       }
       return selectors;
@@ -271,8 +267,8 @@ var Recorder = function () {
 
   }, {
     key: '_capture',
-    value: function _capture(body, kind) {
-      var qs = body.querySelectorAll(this._selectors[kind]);
+    value: function _capture(article, kind) {
+      var qs = article.querySelectorAll(this._selectors[kind]);
       for (var i = qs.length - 1; i >= 0; i--) {
         var obj = qs[i];
         var key = kind + 's';
@@ -311,7 +307,7 @@ var Recorder = function () {
     }
   }, {
     key: 'capture',
-    value: function capture(object) {
+    value: function capture(article) {
       var _this = this;
 
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -326,23 +322,17 @@ var Recorder = function () {
         return null;
       }
 
-      // body
+      // article
       //   --> heading
       //   --> paragraph
       //      --> sentence
       //   --> material
-      var body = void 0;
-      if (typeof this._selectors['body'] === 'undefined' || this._selectors['body'] === null) {
-        body = object;
-      } else {
-        body = object.querySelector(this._selectors['body']);
-      }
-      if (body === null) {
+      if (article === null) {
         return null;
       }
 
       ['heading', 'paragraph', 'sentence', 'material'].map(function (k) {
-        _this._capture(body, k);
+        _this._capture(article, k);
         var key = k + 's';
         var len = _this._data[key].length;
         if (len === 1) {
@@ -355,10 +345,6 @@ var Recorder = function () {
         }
       });
 
-      // info
-      this._info['fullscreen'] = _screen2.default.isFullscreenMode();
-      this._info['orientation'] = _screen2.default.getOrientation(this._view);
-
       var _bar$calculate = this._bar.calculate(this._page['width'], this._page['height'], this._view['width'], this._view['height']),
           _bar$calculate2 = _slicedToArray(_bar$calculate, 2),
           position = _bar$calculate2[0],
@@ -368,6 +354,8 @@ var Recorder = function () {
         position: position,
         proportion: proportion
       };
+      this._info['view'] = [this._view['width'], this._view['height']];
+      this._info['page'] = [this._page['width'], this._page['height']];
 
       return null;
     }
@@ -382,9 +370,7 @@ var Recorder = function () {
       this.clear();
       return {
         'data': data,
-        'info': info,
-        'view': [this._view['width'], this._view['height']],
-        'page': [this._page['width'], this._page['height']]
+        'info': info
       };
     }
   }, {
@@ -401,8 +387,8 @@ var Recorder = function () {
       };
       this._info = {
         'scroll': {},
-        'orientation': {},
-        'fullscreen': false
+        'view': [],
+        'page': []
       };
       return;
     }
@@ -413,56 +399,7 @@ var Recorder = function () {
 
 exports.default = Recorder;
 
-},{"./screen":6,"./scrollbar":7}],6:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Screen = function () {
-  function Screen() {
-    _classCallCheck(this, Screen);
-  }
-
-  _createClass(Screen, null, [{
-    key: 'isFullscreenMode',
-    value: function isFullscreenMode() {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
-      var fullscreenEnabled = document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || false;
-      var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
-
-      return fullscreenEnabled && fullscreenElement !== null || window.outerWidth === window.screen.availWidth && window.outerHeight === window.screen.availHeight;
-    }
-  }, {
-    key: 'getOrientation',
-    value: function getOrientation(currentRegion) {
-      // screen orientation
-      // https://www.w3.org/TR/screen-orientation/
-      var orientation = window.screen.orientation || { 'angle': 0 };
-      var orientationType = null;
-      if (typeof orientation === 'undefined' || orientation === null) {
-        orientationType = currentRegion['width'] > currentRegion['height'] ? 'landscape' : 'portrait';
-      } else {
-        orientationType = orientation.type.replace(/-(primary|secondary)$/, '');
-      }
-      return {
-        'type': orientationType,
-        'angle': orientation ? Number.parseInt(orientation['angle'], 10) : 0
-      };
-    }
-  }]);
-
-  return Screen;
-}();
-
-exports.default = Screen;
-
-},{}],7:[function(require,module,exports){
+},{"./scrollbar":6}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -571,7 +508,7 @@ var Scrollbar = function () {
 
 exports.default = Scrollbar;
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -629,7 +566,7 @@ var Timer = function () {
   }, {
     key: 'value',
     get: function get() {
-      return Number.parseFloat(this._value).toFixed(2);
+      return Number.parseFloat(Number.parseFloat(this._value).toFixed(2));
     }
   }, {
     key: 'startedAt',
@@ -643,7 +580,7 @@ var Timer = function () {
 
 exports.default = Timer;
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -676,9 +613,9 @@ var _base = require('./utils/base64');
 
 var _base2 = _interopRequireDefault(_base);
 
-var _cookie = require('./utils/cookie');
+var _fibonacci = require('./utils/fibonacci');
 
-var _cookie2 = _interopRequireDefault(_cookie);
+var _fibonacci2 = _interopRequireDefault(_fibonacci);
 
 var _uuid = require('./utils/uuid');
 
@@ -700,7 +637,8 @@ var Client = function () {
     _classCallCheck(this, Client);
 
     this.scrollKey = settings.scrollKey;
-    this.token = settings.token; // csrf token
+
+    this.csrfToken = options.token || null;
     this.clock = options.baseDate ? new _clock2.default(options.baseDate) : new _clock2.default();
 
     this.error = this._checkConfig();
@@ -722,11 +660,11 @@ var Client = function () {
     this.capturing = false;
 
     this.endpointURL = options.endpointURL || 'http://127.0.0.1/';
-    this.traceKey = this._genTraceKey(options.cookieKey || 't');
+    this.eventKey = this._genEventKey();
 
     this.credentials = {
-      token: this.token,
-      scrollKey: this.scrollKey
+      authorization: this.scrollKey,
+      csrfToken: this.csrfToken
     };
 
     this.privacy = new _privacy2.default();
@@ -734,7 +672,9 @@ var Client = function () {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL
     this.worker = window.Worker ? new window.Worker(window.URL.createObjectURL(_requestWorker2.default)) : null;
-    this.domain = window.location.host.replace(/:[0-9]*$/g, '');
+
+    this.host = window.location.host.replace(/:[0-9]*$/g, '');
+    this.path = options.path || window.location.pathname.replace(/(^\/?)/, '/');
   }
 
   _createClass(Client, [{
@@ -745,25 +685,12 @@ var Client = function () {
         error = true;
         console.error('[ERROR] scrollKey is needed');
       }
-      if (typeof this.token === 'undefined' || this.token === null || this.token === '') {
-        error = true;
-        console.error('[ERROR] (CSRF) token is needed');
-      }
       return error;
     }
   }, {
-    key: '_genTraceKey',
-    value: function _genTraceKey() {
-      var cookieKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 't';
-
-      var k = _cookie2.default.read(cookieKey);
-      if (typeof k === 'undefined' || k === null) {
-        k = _base2.default.urlsafe_b64encode(_uuid2.default.uuid4()).replace(/\=\=$/, '');
-        // set value to cookie (45 minutes, t=...)
-        _cookie2.default.write(cookieKey, k, 45);
-      }
-      k += '--';
-      return k;
+    key: '_genEventKey',
+    value: function _genEventKey() {
+      return _base2.default.urlsafe_b64encode(_uuid2.default.uuid4());
     }
   }, {
     key: '_sendAction',
@@ -788,12 +715,12 @@ var Client = function () {
         return null;
       }
 
-      var body = {
-        domain: this.domain,
-        path: window.location.pathname,
-        traceKey: this.traceKey,
-        record: record,
+      var payload = {
+        host: this.host,
+        path: this.path,
+        eventKey: this.eventKey,
         eventType: eventType,
+        record: record,
         count: this.counter.value,
         duration: this.timer.value,
         startedAt: this.timer.startedAt,
@@ -802,10 +729,10 @@ var Client = function () {
       };
 
       if (this.debug === true) {
-        console.log(body);
+        console.log(payload);
         return null;
       } else if (this.worker !== null) {
-        this.worker.postMessage([body, this.endpointURL, this.credentials]);
+        this.worker.postMessage([payload, this.endpointURL, this.credentials]);
       }
     }
 
@@ -824,6 +751,9 @@ var Client = function () {
         this.recorder = new _recorder2.default(selectors);
       }
 
+      // reduce capturing count using fibonacci sequence
+      var fib = (0, _fibonacci2.default)();
+
       this.detecting = setTimeout(function () {
         var innerCounter = new _counter2.default();
         var innerTimer = new _timer2.default();
@@ -831,28 +761,33 @@ var Client = function () {
 
         innerTimer.start();
         _this.counter.increment();
+        fib.send(true);
 
-        _this.capturing = setInterval(function () {
+        var capturing = function capturing() {
+          clearInterval(_this.capturing);
           innerCounter.increment();
           _this.recorder.capture(_this.article, {
             count: innerCounter.value // count of capturing at this region
             , duration: innerTimer.value // time on this region
             , startedAt: startedAt
           });
-        }, 500);
-      }, 250);
+          _this.capturing = setInterval(capturing, fib.next() * 1000);
+        };
+        _this.capturing = setInterval(capturing, fib.next() * 1000);
+      }, 100);
     }
   }, {
     key: 'record',
     value: function record() {
-      var article = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      this.article = article;
       this.extra = options.extra || {};
 
       var selectors = options.selectors || null;
 
+      this.article = document.querySelector(selectors ? selectors.article : 'body article' // default
+      );
+      // preprocess check
       if (typeof this.article === 'undefined' || this.article === null) {
         console.error('[ERROR] valid article DOM is needed');
         return null;
@@ -925,7 +860,7 @@ var Client = function () {
         })) {
           onReady();
         }
-      }, 200);
+      }, 100);
 
       var onReady = function onReady() {
         clearInterval(waitLoop);
@@ -949,7 +884,7 @@ var Client = function () {
 
         _this2.scrolling = setTimeout(function () {
           _this2.scrolling = null;
-        }, 200);
+        }, 100);
 
         if (!_this2.article) {
           // initialize for scroll before DOMContentLoaded
@@ -968,7 +903,7 @@ var Client = function () {
 
 exports.default = Client;
 
-},{"./components/clock":2,"./components/counter":3,"./components/privacy":4,"./components/recorder":5,"./components/timer":8,"./utils/base64":10,"./utils/cookie":11,"./utils/request-worker":12,"./utils/uuid":13}],10:[function(require,module,exports){
+},{"./components/clock":2,"./components/counter":3,"./components/privacy":4,"./components/recorder":5,"./components/timer":7,"./utils/base64":9,"./utils/fibonacci":10,"./utils/request-worker":11,"./utils/uuid":12}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1009,59 +944,38 @@ var Base64 = function () {
 
 exports.default = Base64;
 
-},{}],11:[function(require,module,exports){
-'use strict';
+},{}],10:[function(require,module,exports){
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Cookie = function () {
-  function Cookie() {
-    _classCallCheck(this, Cookie);
+var fibo = function fibo() {
+  var t,
+      reset,
+      n1 = 0,
+      n2 = 1;
+  function getNext(reset) {
+    if (reset) {
+      t = n1 = 0;
+      n2 = 1;
+    }
+    t = n1;
+    n1 = n2;
+    n2 += t;
+    return t;
   }
+  return {
+    next: function next() {
+      return getNext();
+    },
+    send: getNext
+  };
+};
 
-  _createClass(Cookie, null, [{
-    key: 'write',
-    value: function write(name, value, minutes) {
-      var expires = '';
-      var date = new Date();
-      date.setTime(date.getTime() + minutes * 60 * 1000);
-      expires = 'expires=' + date.toUTCString();
-      document.cookie = name + '=' + value + '; ' + expires + '; path=/';
-      return value;
-    }
-  }, {
-    key: 'read',
-    value: function read(name) {
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; ++i) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') {
-          c = c.substring(1, c.length);
-        }
-        if (c.indexOf(name + '=') === 0) {
-          return c.substring(name.length + 1, c.length);
-        }
-      }
-    }
-  }, {
-    key: 'delete',
-    value: function _delete(name) {
-      Cookie.write(name, '', -4320); // -3 * 24 * 60 (3days ago)
-    }
-  }]);
+exports.default = fibo;
 
-  return Cookie;
-}();
-
-exports.default = Cookie;
-
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1070,14 +984,16 @@ Object.defineProperty(exports, "__esModule", {
 var fn = function fn(e) {
   var body = e.data[0] || {},
       endpointURL = e.data[1] || 'http://127.0.0.1',
-      credentials = e.data[2] || { token: '', scrollKey: '' },
+      credentials = e.data[2] || { csrfToken: null, authorization: null },
       isAsync = false;
   var xhr = new XMLHttpRequest();
   xhr.open('PUT', endpointURL, isAsync);
+  xhr.setRequestHeader('Authorization', credentials.authorization);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('X-CSRF-Token', credentials.token);
-  xhr.setRequestHeader('X-Scroll-Key', credentials.scrollKey);
+  if (x.csrfToken) {
+    xhr.setRequestHeader('X-CSRF-Token', credentials.csrfToken);
+  }
   xhr.send(JSON.stringify(body));
 };
 
@@ -1103,7 +1019,7 @@ try {
 
 exports.default = blob;
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
