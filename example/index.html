@@ -5,22 +5,22 @@
     <title>Example | Scrolliris Readability Tracker</title>
   </head>
   <body>
-    <section id="publication">
-      <div class="meta">
+    <section>
+      <div>
         <h2>PUBLICATION TITLE</h2>
-        <h3 class="subtitle">PUBLICATION SUB TITLE</h3>
+        <h3>PUBLICATION SUB TITLE</h3>
       </div>
 
-      <article id="article">
-        <div class="meta">
-          <p class="author">AUTHOR</p>
+      <article>
+        <div>
+          <span>AUTHOR</span>
         </div>
 
-        <div id="article_content">
+        <div>
           <h1>TITLE</h1>
-          <h2 class="subtitle">SUB TITLE</h2>
-          <div class="outline">OUTLINE</div>
-          <div class="body">
+          <h2>SUB TITLE</h2>
+          <div>OUTLINE</div>
+          <div>
             <h3>SECTION TITLE</h3>
             <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam luctus elit eu bibendum iaculis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span><span>Curabitur quis nulla efficitur, dapibus risus blandit, rutrum magna.</span><span>Donec scelerisque placerat rutrum.</span><span>Donec facilisis mattis velit at iaculis.</span><span>Fusce at blandit nisi.</span><span>Sed non elit ut enim ultricies accumsan in sed tellus.</span><span id="s_6">Duis eleifend sollicitudin aliquam.</span><span id="s_7">Morbi eget dui non orci interdum ullamcorper.</span><span id="s_8">Nullam sollicitudin arcu eget mi facilisis egestas.</span><span id="s_9">Nulla auctor risus arcu, nec ultrices orci tincidunt tincidunt.</span><span>Sed pulvinar pulvinar nulla.</span><span>Cras vestibulum lectus magna, sit amet convallis justo luctus et.</span><span>Phasellus bibendum aliquet augue, eu finibus metus pharetra in.</span><span>Nulla a rutrum dolor.</span><span>Lorem ipsum</span></p>
             <p><span>Curabitur hendrerit velit lacus.</span><span>Pellentesque posuere dolor sit amet congue semper.</span><span>Pellentesque libero urna, sodales ac quam lobortis, lacinia tempor diam.</span><span>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</span><span>Maecenas eu erat nec enim feugiat scelerisque.</span><span>Fusce vel dolor eu neque viverra sodales.</span><span>Pellentesque risus nisl, faucibus quis dui a, vestibulum aliquet dui.</span><span>In in ipsum ultrices, laoreet justo non, eleifend lorem.</span><span>Donec interdum, quam in interdum pharetra, augue velit pharetra turpis, ut venenatis felis augue vel metus.</span><span>Fusce justo tortor, fermentum et tempor sed, sodales in leo.</span><span>Suspendisse in sapien faucibus, porttitor est vitae, mattis nisl.</span><span>Maecenas sollicitudin, neque at consectetur convallis, ex nisi ullamcorper ipsum, ac ultricies orci libero non massa.</span></p>
@@ -66,7 +66,7 @@
 // short version
 // (function(w) {
 //   var config = {
-//     publicationKey: 'PUBLICATION_KEY'
+//     scrolley: 'SCROLL_KEY'
 //   },
 //   t=w.ScrollirisReadabilityTracker,c=new t.Client(config);
 //   c.ready(['body'], function() {c.record();});
@@ -77,10 +77,11 @@
   // If you specify date, use ISO-8601 format value with timezone such as
   // `0000-00-00T00:00:00.000+00:00`
   var client = new tracker.Client({
-    scrollKey: 'PUBLICATION_KEY'
-  , token: 'TOKEN'
+    scrollKey: 'SCROLL_KEY'
   }, {
     debug: true
+  , path: '/path/to/article'  // e.g. single page application can set virtual path
+  , csrfToken: 'CSRF_TOKEN'
   , endpointURL: 'http://localhost:3000/track'
   , baseDate: (new Date().toISOString())
   });
@@ -88,7 +89,7 @@
   client.ready(['body'], function() {
     client.record({
       selectors: {
-        article: 'article'
+        article: 'section article'
       , heading: 'h2,h3'
       , paragraph: 'p'
       , sentence: 'p > span'
