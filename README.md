@@ -92,7 +92,7 @@ X-CSRF-Token: KD_zt-Q5SzCL2lLTzGMUcQ==
   "count": 14, // total tracking ount on this article
   "duration": 22.40, // total tracked duration on this article
   "startedAt": 1489083012910, // tracking has been started at
-  "timestamp: 1489083035848, // will be sent at
+  "timestamp": 1489083035848, // will be sent at
   "extra": {}
 }
 ```
