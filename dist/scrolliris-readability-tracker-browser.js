@@ -991,7 +991,7 @@ var fn = function fn(e) {
   xhr.setRequestHeader('Authorization', credentials.authorization);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  if (x.csrfToken) {
+  if (credentials.csrfToken) {
     xhr.setRequestHeader('X-CSRF-Token', credentials.csrfToken);
   }
   xhr.send(JSON.stringify(body));
