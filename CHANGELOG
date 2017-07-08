@@ -1,3 +1,8 @@
+08 Jul 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+ * Update example
+ * Update README.md
+ * Fix wrong var name (credentials)
+
 07 Jul 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
  * Release 0.0.3 (v0.0.3)
  * Remove cookie usage (traceKey to eventKey)
