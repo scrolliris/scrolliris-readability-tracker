@@ -71,9 +71,9 @@
     , settings = {
         endpointURL: 'http://localhost:3000/track?projectId='+config.projectId
       }
-    , option = {}
+    , options = {}
     ;
-  var a,f=false,k=d.createElement('script'),s=d.getElementsByTagName('script')[0];k.src='../dist/scrolliris-readability-tracker-browser.js';k.async=true;k.onload=k.onreadystatechange=function(){a=this.readyState;if(f||a&&a!='complete'&&a!='loaded')return;f=true;try{var r=window.ScrollirisReadabilityTracker,t=(new r.Client(config,settings));t.ready(['body'],function(){t.record(option);});}catch(_){}};s.parentNode.insertBefore(k,s);
+  var a,f=false,k=d.createElement('script'),s=d.getElementsByTagName('script')[0];k.src='../dist/scrolliris-readability-tracker-browser.js';k.async=true;k.onload=k.onreadystatechange=function(){a=this.readyState;if(f||a&&a!='complete'&&a!='loaded')return;f=true;try{var r=window.ScrollirisReadabilityTracker,t=(new r.Client(config,settings));t.ready(['body'],function(){t.record(options);});}catch(_){}};s.parentNode.insertBefore(k,s);
 }(document));
     </script>
 
@@ -97,7 +97,7 @@
       })
     ;
   client.ready(['body'], function() {
-    client.record({
+    client.record({ // options
       selectors: {
         article: 'section article'
       , heading: 'h2,h3'

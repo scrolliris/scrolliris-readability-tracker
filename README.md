@@ -58,8 +58,9 @@ Accept: */*
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
 Content-Type: application/json; charset=UTF-8
+Authorization: <SCROLL_KEY>
 X-Requested-With: XMLHttpRequest
-X-CSRF-Token: KD_zt-Q5SzCL2lLTzGMUcQ==
+X-CSRF-Token: <CSRF_TOKEN>
 ```
 
 ### Body
@@ -184,10 +185,10 @@ client.record({
 ```js
 (function(tracker) {
   var client = new tracker.Client({
-    scrollKey: '...'
+    scrollKey: '<SCROLL_KEY>'
   }, {
     debug: false
-  , csrfToken: '...'
+  , csrfToken: '<CSRF_TOKEN>'
   , baseDate: (new Date().toISOString())
   });
 
