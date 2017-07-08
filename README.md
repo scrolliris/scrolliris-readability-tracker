@@ -80,7 +80,7 @@ X-CSRF-Token: KD_zt-Q5SzCL2lLTzGMUcQ==
       "duration": 22.90, // captured duration at this region
       "startedAt":  1489082998821 // capturing has been started at
     },
-    "info": { // browsing information
+    "info": { // situation information of the document
       "scroll": {
         "position": [0, 345], // (x, y)
         "proportion": [0, 52.35204855842185] // (x, y)
