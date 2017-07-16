@@ -58,7 +58,7 @@ Accept: */*
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
 Content-Type: application/json; charset=UTF-8
-Authorization: <SCROLL_KEY>
+Authorization: <API_KEY>
 X-Requested-With: XMLHttpRequest
 X-CSRF-Token: <CSRF_TOKEN>
 ```
@@ -118,7 +118,7 @@ key which just generated on the browser by the each access.
 
 | value | default | description |
 |---|---|---|
-| scrollKey | `null` | The key will be set as `Authorization` header. |
+| apiKey | `null` | The key will be set as `Authorization` header. |
 
 #### Options
 
@@ -185,7 +185,7 @@ client.record({
 ```js
 (function(tracker) {
   var client = new tracker.Client({
-    scrollKey: '<SCROLL_KEY>'
+    apiKey: '<API_KEY>'
   }, {
     debug: false
   , csrfToken: '<CSRF_TOKEN>'
@@ -208,7 +208,7 @@ The main `lib/index.js` has ES2015 style.
 import Client from 'siret';
 
 let client = new Client({
-  scrollKey: '...'
+  apiKey: '...'
 }, {
   debug: false
 , csrfToken: '...'

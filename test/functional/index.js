@@ -10,8 +10,9 @@ import './utils/uuid_test';
 // Client
 test('constructor of client', (t) => {
   let client = new Client({
-    scrollKey: 'key'
-  , token: 'token'
+    apiKey: 'key'
+  }, {
+    csrfToken: 'token'
   });
 
   t.equal(client instanceof Client, true,
@@ -21,8 +22,9 @@ test('constructor of client', (t) => {
 
 test('The client\'s debug mode', (t) => {
   let client = new Client({
-    scrollKey: 'key'
-  , token: 'token'
+    apiKey: 'key'
+  }, {
+    csrfToken: 'token'
   });
 
   t.equal(client.debug, false,
@@ -30,13 +32,14 @@ test('The client\'s debug mode', (t) => {
   t.end();
 });
 
-test('The client\'s scrollKey', (t) => {
+test('The client\'s apiKey', (t) => {
   let client = new Client({
-    scrollKey: 'key'
-  , token: 'token'
+    apiKey: 'key'
+  }, {
+    csrfToken: 'token'
   });
 
-  t.equal(client.scrollKey, 'key',
+  t.equal(client.apiKey, 'key',
     'should be set via settings argument');
   t.end();
 });
