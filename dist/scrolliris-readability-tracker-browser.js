@@ -636,9 +636,9 @@ var Client = function () {
 
     _classCallCheck(this, Client);
 
-    this.scrollKey = settings.scrollKey;
+    this.apiKey = settings.apiKey;
 
-    this.csrfToken = options.token || null;
+    this.csrfToken = options.csrfToken || null;
     this.clock = options.baseDate ? new _clock2.default(options.baseDate) : new _clock2.default();
 
     this.error = this._checkConfig();
@@ -663,7 +663,7 @@ var Client = function () {
     this.eventKey = this._genEventKey();
 
     this.credentials = {
-      authorization: this.scrollKey,
+      authorization: this.apiKey,
       csrfToken: this.csrfToken
     };
 
@@ -681,9 +681,9 @@ var Client = function () {
     key: '_checkConfig',
     value: function _checkConfig() {
       var error = false;
-      if (typeof this.scrollKey === 'undefined' || this.scrollKey === null || this.scrollKey === '') {
+      if (typeof this.apiKey === 'undefined' || this.apiKey === null || this.apiKey === '') {
         error = true;
-        console.error('[ERROR] scrollKey is needed');
+        console.error('[ERROR] apiKey is needed');
       }
       return error;
     }
@@ -983,7 +983,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var fn = function fn(e) {
   var body = e.data[0] || {},
-      endpointURL = e.data[1] || 'http://127.0.0.1',
+      endpointURL = e.data[1] || 'http://127.0.0.1'
+  // NOTE: CAREFULLY change this line
+  // (in production, default token would be replaced using regxp)
+  ,
       credentials = e.data[2] || { csrfToken: null, authorization: null },
       isAsync = false;
   var xhr = new XMLHttpRequest();
