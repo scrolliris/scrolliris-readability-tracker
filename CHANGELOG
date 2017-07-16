@@ -1,4 +1,5 @@
 17 Jul 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+ * Release 0.0.5 (v0.0.5)
  * Fix csrfToken option name
  * Change api key name (apiKey)
 
