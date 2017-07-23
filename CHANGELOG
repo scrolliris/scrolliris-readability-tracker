@@ -1,3 +1,7 @@
+24 Jul 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+ * Release 0.0.6 (v0.0.6)
+ * Update request headers (default value)
+
 17 Jul 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
  * Release 0.0.5 (v0.0.5)
  * Fix csrfToken option name
