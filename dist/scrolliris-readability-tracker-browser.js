@@ -638,6 +638,8 @@ var Client = function () {
 
     this.apiKey = settings.apiKey;
 
+    // NOTE: change these lines, carefully.
+    // (in production, default token would be replaced using regxp)
     this.csrfToken = options.csrfToken || null;
     this.clock = options.baseDate ? new _clock2.default(options.baseDate) : new _clock2.default();
 
@@ -983,17 +985,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 var fn = function fn(e) {
   var body = e.data[0] || {},
-      endpointURL = e.data[1] || 'http://127.0.0.1'
-  // NOTE: CAREFULLY change this line
-  // (in production, default token would be replaced using regxp)
-  ,
+      endpointURL = e.data[1] || 'http://127.0.0.1',
       credentials = e.data[2] || { csrfToken: null, authorization: null },
       isAsync = false;
   var xhr = new XMLHttpRequest();
   xhr.open('PUT', endpointURL, isAsync);
-  xhr.setRequestHeader('Authorization', credentials.authorization);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  if (credentials.authorization) {
+    xhr.setRequestHeader('Authorization', credentials.authorization);
+  }
   if (credentials.csrfToken) {
     xhr.setRequestHeader('X-CSRF-Token', credentials.csrfToken);
   }
