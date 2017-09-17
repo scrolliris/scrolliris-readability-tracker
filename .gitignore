@@ -1,11 +1,14 @@
 node_modules
 
-.*-version
-
 .nyc_output
 coverage
 
-test/build/*.js
+.*-version
+.env.ci
+.env
+
+tmp/build/**/*.js
+tmp/_cache
 
 *.log
 venv

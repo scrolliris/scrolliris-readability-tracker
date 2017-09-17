@@ -5,9 +5,11 @@ var fs = require('fs')
   ;
 
 var gulp = require('gulp')
+  , glob = require('glob')
   , babelify = require('babelify')
   , browserify = require('browserify')
   , buffer = require('vinyl-buffer')
+  , through = require('through2')
   , clean = require('gulp-clean')
   , env = require('gulp-env')
   , pump = require('pump')
@@ -41,7 +43,7 @@ gulp.task('env', function(done) {
 gulp.task('clean', function() {
   return gulp.src([
       './dist/*'
-    , './test/build/*.js'
+    , './tmp/build/**/*'
     , './coverage/*'
     ], {read: false})
     .pipe(clean());
@@ -108,9 +110,9 @@ gulp.task('build', ['build:index', 'build:browser']);
 
 // -- [test tasks]
 
-// unit tests
+// unit test
 gulp.task('test:unit:clean', function() {
-  return gulp.src(['./test/build/unit-*.js'], {read: false})
+  return gulp.src(['./tmp/build/test/unit-*.js'], {read: false})
     .pipe(clean());
 });
 
@@ -120,18 +122,18 @@ gulp.task('test:unit:build', function() {
     , debug: true
     })
     .transform('babelify', {
-      presets:            ['es2015']
+      presets: ['es2015']
     , sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('unit-tests.js'))
+    .pipe(source('unit-test.js'))
     .pipe(buffer())
     .on('error', util.log)
-    .pipe(gulp.dest('./test/build/'));
+    .pipe(gulp.dest('./tmp/build/test/'));
 });
 
 gulp.task('test:unit:run', function() {
-  return gulp.src(['test/build/unit-tests.js'])
+  return gulp.src(['tmp/build/test/unit-test.js'])
     .pipe(tape({
       reporter: tapColorize()
     }));
@@ -141,51 +143,53 @@ gulp.task('test:unit', function(done) {
   return sequence('test:unit:clean', 'test:unit:build', 'test:unit:run', done);
 });
 
-// functional tests
-gulp.task('test:functional:clean', function() {
-  return gulp.src(['./test/build/functional-*.js'], {read: false})
+// functional test
+gulp.task('test:func:clean', function() {
+  return gulp.src(['./tmp/build/test/func-*.js'], {read: false})
     .pipe(clean());
 });
 
-// cat ./test/build/functional-tests.js | ./node_modules/.bin/tape-run
-gulp.task('test:functional:build', function() {
+gulp.task('test:func:build', function() {
   return browserify({
-      entries: './test/functional/index.js'
-    , debug:   true
+      entries: glob.sync('./test/func/**/*.js')
+    , debug: true
     })
     .transform('babelify', {
-      presets:            ['es2015']
+      presets: ['es2015']
     , sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('functional-tests.js'))
+    .pipe(source('func-test.js'))
     .pipe(buffer())
     .on('error', util.log)
-    .pipe(gulp.dest('./test/build/'));
+    .pipe(gulp.dest('./tmp/build/test/'));
 });
 
-// run tests on electron
-gulp.task('test:functional:run', function() {
-  return browserify({
-      entries: './test/functional/index.js'
-    , debug:   true
-    })
-    .transform('babelify', {
-      presets:            ['es2015']
-    , sourceMapsAbsolute: true
-    })
-    .bundle()
+// run tests on electron (default)
+gulp.task('test:func:run', function() {
+  // same as:
+  //   `cat ./tmp/build/test/func-test.js | ./node_modules/.bin/tape-run`
+  var stream = function() {
+    return through.obj(function(file, encoding, callback) {
+      this.push(file.contents);
+      return callback();
+    });
+  };
+  return gulp.src([
+      './tmp/build/test/func-*.js'
+    ])
+    .pipe(stream())
     .pipe(tapeRun())
     .on('error', util.log)
     .pipe(process.stdout);
 });
 
-gulp.task('test:functional', function(done) {
-  return sequence('test:functional:run', done);
+gulp.task('test:func', function(done) {
+  return sequence('test:func:clean', 'test:func:build', 'test:func:run');
 });
 
-gulp.task('test:clean', ['test:unit:clean', 'test:functional:clean']);
-gulp.task('test',  ['test:unit', 'test:functional']);
+gulp.task('test:clean', ['test:unit:clean', 'test:func:clean']);
+gulp.task('test', ['test:unit', 'test:func']);
 
 
 // -- [main tasks]

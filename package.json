@@ -59,5 +59,9 @@
   "directories": {
     "example": "example",
     "test": "test"
+  },
+  "dependencies": {
+    "glob": "7.1.2",
+    "through2": "2.0.3"
   }
 }
