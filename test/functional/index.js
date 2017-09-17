@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import Client from '../../lib/index';
+import Client from '../../src/index';
 
 
 import './utils/base64_test';

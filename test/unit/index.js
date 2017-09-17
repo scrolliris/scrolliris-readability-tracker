@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import Client from '../../lib/index';
+import Client from '../../src/index';
 
 
 test('The constructor of the Client', (t) => {

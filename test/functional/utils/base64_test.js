@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import Base64 from '../../../lib/utils/base64';
+import Base64 from '../../../src/utils/base64';
 
 test('Base64.urlsafe_b64encode is callable', (t) => {
   t.equal(typeof Base64 === 'function', true, 'should be function');

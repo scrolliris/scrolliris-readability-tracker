@@ -53,7 +53,7 @@ gulp.task('clean', function() {
 var runBrowserify = function(inputFile, outputFile) {
   return function() {
     return browserify({
-        entries: './lib/' + inputFile
+        entries: './src/' + inputFile
       , debug: false
       })
       .transform('babelify', {

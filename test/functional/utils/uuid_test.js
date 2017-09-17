@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import UUID from '../../../lib/utils/uuid';
+import UUID from '../../../src/utils/uuid';
 
 test('UUID.uuid4 is callable', (t) => {
   t.ok(typeof UUID === 'function', 'should be function');
