@@ -42,7 +42,7 @@ gulp.task('env', function(done) {
 
 gulp.task('clean', function() {
   return gulp.src([
-      './dist/*'
+      './dst/*'
     , './tmp/build/**/*'
     , './coverage/*'
     ], {read: false})
@@ -70,17 +70,17 @@ var runBrowserify = function(inputFile, outputFile) {
       }))
       .on('error', util.log)
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./dist/'));
+      .pipe(gulp.dest('./dst/'));
   };
 };
 
 var runMinify = function(filename) {
   return function() {
     return pump([
-        gulp.src(['./dist/' + filename])
+        gulp.src(['./dst/' + filename])
       , uglify()
       , rename({suffix: '.min'})
-      , gulp.dest('./dist/')
+      , gulp.dest('./dst/')
       ]);
   };
 };
