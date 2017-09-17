@@ -73,11 +73,11 @@
       }
     , options = {}
     ;
-  var a,f=false,k=d.createElement('script'),s=d.getElementsByTagName('script')[0];k.src='../dist/scrolliris-readability-tracker-browser.js';k.async=true;k.onload=k.onreadystatechange=function(){a=this.readyState;if(f||a&&a!='complete'&&a!='loaded')return;f=true;try{var r=window.ScrollirisReadabilityTracker,t=(new r.Client(config,settings));t.ready(['body'],function(){t.record(options);});}catch(_){}};s.parentNode.insertBefore(k,s);
+  var a,f=false,k=d.createElement('script'),s=d.getElementsByTagName('script')[0];k.src='../dst/scrolliris-readability-tracker-browser.js';k.async=true;k.onload=k.onreadystatechange=function(){a=this.readyState;if(f||a&&a!='complete'&&a!='loaded')return;f=true;try{var r=window.ScrollirisReadabilityTracker,t=(new r.Client(config,settings));t.ready(['body'],function(){t.record(options);});}catch(_){}};s.parentNode.insertBefore(k,s);
 }(document));
   </script>
 
-<!-- <script src="../dist/scrolliris-readability-tracker-browser.js"></script> -->
+<!-- <script src="../dst/scrolliris-readability-tracker-browser.js"></script> -->
 <!-- <script>
 // standard usage
 (function(tracker) {
