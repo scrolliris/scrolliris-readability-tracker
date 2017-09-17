@@ -307,7 +307,7 @@ Article has...
 % gulp test:unit
 
 : run functional tests on Electron
-% gulp test:functional
+% gulp test:func
 ```
 
 
