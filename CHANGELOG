@@ -1,4 +1,6 @@
 18 Sep 2017 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+ * Release 0.0.7
+ * Fix parseInt issue on ci (phantomjs)
  * Change dist directory as dst
  * Fix functional testing environment
  * Add package-log.json (use npm 5)
