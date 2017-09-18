@@ -1,12 +1,12 @@
 module.exports = function(config) {
   config.set({
-    basePath: '.'
+    basePath: ''
   , frameworks: ['browserify', 'tape']
   , files: [
       'test/**/*.js'
     ]
   , exclude: [
-      'test/build/*.js'
+      'tmp/build/**/*.js'
     ]
   , preprocessors: {
       'test/**/*.js': ['browserify']
@@ -19,12 +19,12 @@ module.exports = function(config) {
       , plugins: ['istanbul']
       }]
     ]}
-  , reporters: ['coverage']
+  , reporters: ['progress', 'coverage']
   , coverageReporter: {
       dir: 'coverage'
     , reporters: [
         {type: 'html', subdir: 'html'}
-      , {type: 'text',         subdir: '.', file: 'text.txt'}
+      , {type: 'text', subdir: '.', file: 'text.txt'}
       , {type: 'text-summary', subdir: '.', file: 'text-summary.txt'}
       ]
     }
