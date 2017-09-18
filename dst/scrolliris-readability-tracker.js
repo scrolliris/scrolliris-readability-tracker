@@ -909,9 +909,10 @@ var Base64 = function () {
       // get raw bytes of str
       var hex = str.replace(/[\-{}]/g, '');
       var raw = '';
+      var toInt = Number && Number.parseInt ? Number.parseInt : parseInt;
       for (var i = 0; i < hex.length; i += 2) {
         // convert characters to a bit
-        raw += String.fromCharCode(Number.parseInt(hex.charAt(i) + hex.charAt(i + 1), 16));
+        raw += String.fromCharCode(toInt(hex.charAt(i) + hex.charAt(i + 1), 16));
       }
       // same with python's base64.urlsafe_b64encode() using first `replace()`.
       // See https://docs.python.org/3.5/library/base64.html
