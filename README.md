@@ -2,9 +2,17 @@
 
 `/sɪrɛ́t/`
 
-[![build status](https://gitlab.com/lupine-software/siret/badges/master/build.svg)](https://gitlab.com/lupine-software/siret/commits/master) [![coverage report](https://gitlab.com/lupine-software/siret/badges/master/coverage.svg)](https://gitlab.com/lupine-software/siret/commits/master)
+[![build status][gitlab-ci-build]][gitlab-commits] [
+![coverage report][gitlab-ci-coverage]][gitlab-commits] [
+![npm version][npm-version]][npm-site]
 
 ```txt
+
+  () o
+  /\     ,_    _ _|_
+ /  \|  /  |  |/  |
+/(__/|_/   |_/|__/|_/
+
 Siret; ScrollIris REadability Tracker
 ```
 
@@ -319,5 +327,11 @@ This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation.
 
-
 See [LICENSE](LICENSE).
+
+
+[gitlab-ci-build]: https://gitlab.com/lupine-software/siret/badges/master/build.svg
+[gitlab-ci-coverage]:https://gitlab.com/lupine-software/siret/badges/master/coverage.svg
+[gitlab-commits]: https://gitlab.com/lupine-software/siret/commits/master
+[npm-version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
+[npm-site]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
