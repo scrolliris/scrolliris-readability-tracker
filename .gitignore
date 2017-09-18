@@ -3,6 +3,8 @@ node_modules
 .nyc_output
 coverage
 
+bin/gitlab-ci-multi-runner
+
 .*-version
 .env.ci
 .env
