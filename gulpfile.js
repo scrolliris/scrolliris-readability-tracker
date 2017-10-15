@@ -118,7 +118,7 @@ gulp.task('test:unit:clean', function() {
 
 gulp.task('test:unit:build', function() {
   return browserify({
-      entries: './test/unit/index.js'
+      entries: glob.sync('./test/unit/**/*_test.js')
     , debug: true
     })
     .transform('babelify', {

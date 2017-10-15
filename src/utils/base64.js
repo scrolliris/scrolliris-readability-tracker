@@ -1,5 +1,8 @@
 class Base64 {
   static urlsafe_b64encode(str) {
+    if (typeof window === 'undefined') {
+      return str;
+    }
     // get raw bytes of str
     let hex = str.replace(/[\-{}]/g, '');
     let raw = '';

@@ -1,5 +1,8 @@
 class UUID {
   static uuid4() {
+    if (typeof window === 'undefined') {
+      return '';
+    }
     // generate raw uuid4 string
     let t = Date.now();
     if (window.performance && typeof window.performance.now === 'function') {
