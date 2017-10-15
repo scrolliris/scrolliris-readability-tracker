@@ -1,10 +1,6 @@
 import test from 'tape';
 
-import Client from '../../src/index';
-
-
-import './utils/base64_test';
-import './utils/uuid_test';
+import Client from '../../../src/component/client';
 
 
 // Client

@@ -1,4 +1,4 @@
-import Client from './index';
+import Client from './component/client';
 
 let tracker = ((Client) => {
   return {

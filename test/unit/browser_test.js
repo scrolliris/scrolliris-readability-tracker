@@ -4,12 +4,12 @@ import tracker from '../../src/browser';
 import Client from '../../src/index';
 
 
-test('typeof tracker', (t) => {
+test('tracker is object', (t) => {
   t.equal(typeof tracker === 'object', true, 'should be object');
   t.end();
 });
 
-test('Client property', (t) => {
+test('tracker has Client property', (t) => {
   t.equal(tracker.Client === Client, true, 'should be Client');
   t.end();
 });
