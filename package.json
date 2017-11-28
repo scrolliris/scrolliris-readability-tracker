@@ -7,12 +7,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "gitlab.com:lupine-software/siret"
+    "url": "gitlab.com:scrolliris/siret"
   },
   "bugs": {
-    "url": "https://gitlab.com/lupine-software/siret/issues"
+    "url": "https://gitlab.com/scrolliris/siret/issues"
   },
-  "homepage": "https://gitlab.com/lupine-software/siret",
+  "homepage": "https://gitlab.com/scrolliris/siret",
   "author": "Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net> (https://grauwoelfchen.net)",
   "maintainers": [
     "Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net> (https://grauwoelfchen.net)"

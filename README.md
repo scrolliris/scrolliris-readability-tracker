@@ -19,7 +19,7 @@ Siret; ScrollIris REadability Tracker
 
 **Siret** tracks text readability data based on the scroll event in
 a gentlemanly manner. It will be indicated by [Sihl](
-https://gitlab.com/lupine-software/sihl).
+https://gitlab.com/scrolliris/sihl).
 
 This project is text readibility tracking script and its SDK by [Scrolliris](
 https://about.scrolliris.com) using browser's Web Worker API.  
@@ -28,8 +28,8 @@ It's called *Scrolliris Readability Tracker* as formal.
 
 ## Repository
 
-[https://gitlab.com/lupine-software/siret](
-https://gitlab.com/lupine-software/siret)
+[https://gitlab.com/scrolliris/siret](
+https://gitlab.com/scrolliris/siret)
 
 
 ## Philosophy
@@ -355,8 +355,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 See [LICENSE](LICENSE).
 
 
-[ci-build]: https://gitlab.com/lupine-software/siret/badges/master/build.svg
-[ci-cov]: https://gitlab.com/lupine-software/siret/badges/master/coverage.svg
-[commit]: https://gitlab.com/lupine-software/siret/commits/master
+[ci-build]: https://gitlab.com/scrolliris/siret/badges/master/build.svg
+[ci-cov]: https://gitlab.com/scrolliris/siret/badges/master/coverage.svg
+[commit]: https://gitlab.com/scrolliris/siret/commits/master
 [version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
 [npm-site]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
