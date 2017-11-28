@@ -1,6 +1,6 @@
 # Stäfa
 
-`/sɪrɛ́t/`
+`/stäfa/`
 
 [![pipeline status][pipeline]][commit] [![coverage report][coverage]][commit]
 [![npm version][version]][npm]
