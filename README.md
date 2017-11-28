@@ -2,8 +2,8 @@
 
 `/sɪrɛ́t/`
 
-[![pipeline status][pipeline]][commit] [![coverage report][coverage]][commit] [
-![npm version][version]][npm]
+[![pipeline status][pipeline]][commit] [![coverage report][coverage]][commit]
+[![npm version][version]][npm]
 
 
 
