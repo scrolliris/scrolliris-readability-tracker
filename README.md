@@ -2,7 +2,7 @@
 
 `/sɪrɛ́t/`
 
-[![pipeline status][ci-build]][commit] [![coverage report][ci-cov]][commit] [
+[![pipeline status][pipeline]][commit] [![coverage report][coverage]][commit] [
 ![npm version][version]][npm]
 
 
@@ -357,8 +357,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 See [LICENSE](LICENSE).
 
 
-[ci-build]: https://gitlab.com/scrolliris/staefa/badges/master/build.svg
-[ci-cov]: https://gitlab.com/scrolliris/staefa/badges/master/coverage.svg
+[pipeline]: https://gitlab.com/scrolliris/staefa/badges/master/build.svg
+[coverage]: https://gitlab.com/scrolliris/staefa/badges/master/coverage.svg
 [commit]: https://gitlab.com/scrolliris/staefa/commits/master
 [version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
-[npm-site]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
+[npm]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
