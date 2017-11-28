@@ -1,19 +1,19 @@
 {
   "name": "@lupine-software/scrolliris-readability-tracker",
   "version": "0.0.7",
-  "description": "Text Readability Tracker by Scrolliris (Code Name: Siret)",
+  "description": "Text Readability Tracker by Scrolliris (Code Name: Stäfa)",
   "scripts": {
     "test": "karma start || cat coverage/text-summary.txt"
   },
   "repository": {
     "type": "git",
-    "url": "gitlab.com:scrolliris/siret"
+    "url": "gitlab.com:scrolliris/staefa"
   },
   "bugs": {
-    "url": "https://gitlab.com/scrolliris/siret/issues"
+    "url": "https://gitlab.com/scrolliris/staefa/issues"
   },
-  "homepage": "https://gitlab.com/scrolliris/siret",
-  "author": "Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net> (https://grauwoelfchen.net)",
+  "homepage": "https://gitlab.com/scrolliris/staefa",
+  "author": "Lupine Software LLC",
   "maintainers": [
     "Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net> (https://grauwoelfchen.net)"
   ],

@@ -1,4 +1,4 @@
-# Siret
+# Stäfa
 
 `/sɪrɛ́t/`
 
@@ -8,16 +8,18 @@
 
 
 ```txt
+               _
+  ()     + +  | |
+  /\_|_  __,  | |  __,
+ /  \|  /  |  |/  /  |
+/(__/|_/\_/|_/|__/\_/|_/
+              |\
+              |/
 
-  () o
-  /\     ,_    _ _|_
- /  \|  /  |  |/  |
-/(__/|_/   |_/|__/|_/
-
-Siret; ScrollIris REadability Tracker
+Stäfa; Scrolliris Text reAdability trAcker
 ```
 
-**Siret** tracks text readability data based on the scroll event in
+**Stäfa** tracks text readability data based on the scroll event in
 a gentlemanly manner. It will be indicated by [Sihl](
 https://gitlab.com/scrolliris/sihl).
 
@@ -28,8 +30,8 @@ It's called *Scrolliris Readability Tracker* as formal.
 
 ## Repository
 
-[https://gitlab.com/scrolliris/siret](
-https://gitlab.com/scrolliris/siret)
+[https://gitlab.com/scrolliris/staefa](
+https://gitlab.com/scrolliris/staefa)
 
 
 ## Philosophy
@@ -219,7 +221,7 @@ client.record({
 The main `lib/index.js` has ES2015 style.
 
 ```js
-import Client from 'siret';
+import Client from 'staefa';
 
 let client = new Client({
   apiKey: '...'
@@ -328,7 +330,7 @@ Article has...
 ## License
 
 ```txt
-Siret
+Stäfa (Staefa)
 Copyright (c) 2017 Lupine Software LLC
 ```
 
@@ -355,8 +357,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 See [LICENSE](LICENSE).
 
 
-[ci-build]: https://gitlab.com/scrolliris/siret/badges/master/build.svg
-[ci-cov]: https://gitlab.com/scrolliris/siret/badges/master/coverage.svg
-[commit]: https://gitlab.com/scrolliris/siret/commits/master
+[ci-build]: https://gitlab.com/scrolliris/staefa/badges/master/build.svg
+[ci-cov]: https://gitlab.com/scrolliris/staefa/badges/master/coverage.svg
+[commit]: https://gitlab.com/scrolliris/staefa/commits/master
 [version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
 [npm-site]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
