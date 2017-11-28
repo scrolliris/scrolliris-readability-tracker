@@ -20,8 +20,8 @@ Stäfa; Scrolliris Text reAdability trAcker
 ```
 
 **Stäfa** tracks text readability data based on the scroll event in
-a gentlemanly manner. It will be indicated by [Sihl](
-https://gitlab.com/scrolliris/sihl).
+a gentlemanly manner. It will be indicated by [Sierre](
+https://gitlab.com/scrolliris/sierre).
 
 This project is text readibility tracking script and its SDK by [Scrolliris](
 https://about.scrolliris.com) using browser's Web Worker API.  
