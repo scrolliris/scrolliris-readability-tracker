@@ -157,7 +157,7 @@ key which just generated on the browser by the each access.
 `Client.record` can take `selectors` in second argument.
 
 | Object | Default Selector | Type |
-|---|---|---|---|
+|---|---|---|
 | article | `body article` | `querySelector` |
 | heading | `'h1,h2,h3,h4,h5,h6'` | `querySelectorAll` |
 | paragraph | `'p'`| `querySelectorAll` |
