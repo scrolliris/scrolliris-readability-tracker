@@ -1,10 +1,15 @@
-# Stäfa
+# Scrolliris Readability Tracker
 
-`/stäfa/`
+Code Name: `Stäfa /stäfa/`
 
 [![pipeline status][pipeline]][commit] [![coverage report][coverage]][commit]
 [![npm version][version]][npm]
 
+[pipeline]: https://gitlab.com/scrolliris/scrolliris-readability-tracker/badges/master/build.svg
+[coverage]: https://gitlab.com/scrolliris/scrolliris-readability-tracker/badges/master/coverage.svg
+[commit]: https://gitlab.com/scrolliris/scrolliris-readability-tracker/commits/master
+[version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
+[npm]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
 
 
 ```txt
@@ -20,18 +25,17 @@ Stäfa; Scrolliris Text reAdability trAcker
 ```
 
 **Stäfa** tracks text readability data based on the scroll event in
-a gentlemanly manner. It will be indicated by [Sierre](
-https://gitlab.com/scrolliris/sierre).
+a gentlemanly manner. It will be indicated by [Scrolliris Readability Reflector (Sierre)](
+https://gitlab.com/scrolliris/scrolliris-readability-reflector).
 
 This project is text readibility tracking script and its SDK by [Scrolliris](
-https://about.scrolliris.com) using browser's Web Worker API.  
-It's called *Scrolliris Readability Tracker* as formal.
+https://about.scrolliris.com) using browser's Web Worker API.
 
 
 ## Repository
 
-[https://gitlab.com/scrolliris/staefa](
-https://gitlab.com/scrolliris/staefa)
+[https://gitlab.com/scrolliris/scrolliris-readability-tracker](
+https://gitlab.com/scrolliris/scrolliris-readability-tracker)
 
 
 ## Philosophy
@@ -330,7 +334,7 @@ Article has...
 ## License
 
 ```txt
-Stäfa (Staefa)
+Scrolliris Readability Tracker
 Copyright (c) 2017 Lupine Software LLC
 ```
 
@@ -355,10 +359,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ```
 
 See [LICENSE](LICENSE).
-
-
-[pipeline]: https://gitlab.com/scrolliris/staefa/badges/master/build.svg
-[coverage]: https://gitlab.com/scrolliris/staefa/badges/master/coverage.svg
-[commit]: https://gitlab.com/scrolliris/staefa/commits/master
-[version]: https://img.shields.io/npm/v/@lupine-software/scrolliris-readability-tracker.svg
-[npm]: https://www.npmjs.com/package/@lupine-software/scrolliris-readability-tracker
